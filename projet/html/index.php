@@ -89,7 +89,7 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <img src="images/profile.jpg" alt="">
+            <button id="ajout">Ajouter player</button>
         </div>
 
         <div class="dash-content">
@@ -118,7 +118,7 @@
                             $sql = "SELECT * FROM player";
                             $result = mysqli_query($connection,$sql);
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<span class="data-list">'.$row['photo'].'</span></br>';
+                                echo '<image src= "'.$row['photo'].'"/></br>';
                             }
                         ?>
                     </div>
@@ -145,19 +145,174 @@
                     <div class="data type">
                         <span class="data-title">modifier</span>
                         <i class="fa-solid fa-square-pen"></i>
+                        <i class="fa-solid fa-square-pen"></i>
+                        <i class="fa-solid fa-square-pen"></i>
+                        <i class="fa-solid fa-square-pen"></i>
+                        <i class="fa-solid fa-square-pen"></i>
                     </div>
                     <div class="data type">
                         <span class="data-title">supprimer</span>
                         <i class="fa-solid fa-trash"></i>
                     </div>
 
+                    <div id= "popup">
+                        <div class="form-groupe">
+                            <h2>Ajouter Player</h2>
+                            <form>
+                                <div>
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" placeholder="Enter player name" name="name" class="inputs"
+                                        onchange="validation()" />
+                                    <span class="erreur"></span>
+                                </div>
+                                <div class="uplaod">
+                                    <div class="upload-photo">
+                                        <div>
+                                            <label for="photo">Photo</label>
+                                            <input id="photo" type="url" name="photo" class="inputs" onchange="validation()" />
+                                            <span class="erreur"></span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-flag">
+                                        <div>
+                                            <label for="flag">Flag</label>
+                                            <input id="flag" type="url" name="flag" class="inputs" onchange="validation()" />
+                                            <span class="erreur"></span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-logo">
+                                        <div>
+                                            <label for="logo">Logo</label>
+                                            <input id="logo" type="url" name="logo" class="inputs" onchange="validation()" />
+                                            <span class="erreur"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="position">Position</label>
+                                    <select id="position" name="position" class="inputs" onchange="validation()">
+                                        <option value=""></option>
+                                        <option value="GK">GK</option>
+                                        <option value="LB">LB</option>
+                                        <option value="LCB">LCB</option>
+                                        <option value="RCB">RCB</option>
+                                        <option value="RB">RB</option>
+                                        <option value="LCM">LCM</option>
+                                        <option value="CM">CM</option>
+                                        <option value="RCM">RCM</option>
+                                        <option value="LW">LW</option>
+                                        <option value="ST">ST</option>
+                                        <option value="RF">RF</option>
+                                    </select>
+                                    <span class="erreur"></span>
+                                </div>
+                                <div>
+                                    <label for="nationality">Nationality</label>
+                                    <select id="nationality" name="nationality" class="inputs" onchange="validation()">
+                                        <option value=""></option>
+                                        <option value="morocco">Morocco</option>
+                                        <option value="albania">Albania</option>
+                                        <option value="algeria">Algeria</option>
+                                        <option value="argentina">Argentina</option>
+                                        <option value="australia">Australia</option>
+                                        <option value="brazil">Brazil</option>
+                                        <option value="canada">Canada</option>
+                                        <option value="china">China</option>
+                                        <option value="egypt">Egypt</option>
+                                        <option value="france">France</option>
+                                        <option value="germany">Germany</option>
+                                        <option value="india">India</option>
+                                        <option value="italy">Italy</option>
+                                        <option value="japan">Japan</option>
+                                        <option value="mexico">Mexico</option>
+                                        <option value="afghanistan">Afghanistan</option>
+                                        <option value="russia">Russia</option>
+                                        <option value="saudi-arabia">Saudi Arabia</option>
+                                        <option value="spain">Spain</option>
+                                        <option value="united-states">United States</option>
+                                    </select>
+                                    <span class="erreur"></span>
+                                </div>
 
+                                <div>
+                                    <label for="club">Club</label>
+                                    <select id="club" name="club" class="inputs" onchange="validation()">
+                                        <option value=""></option>
+                                        <option value="barcelona">FC Barcelona</option>
+                                        <option value="real-madrid">Real Madrid</option>
+                                        <option value="manchester-united">Manchester United</option>
+                                        <option value="manchester-city">Manchester City</option>
+                                        <option value="bayern-munich">Bayern Munich</option>
+                                        <option value="paris-saint-germain">Paris Saint-Germain (PSG)</option>
+                                        <option value="liverpool">Liverpool FC</option>
+                                        <option value="chelsea">Chelsea FC</option>
+                                        <option value="juventus">Juventus</option>
+                                        <option value="inter-milan">Inter Milan</option>
+                                        <option value="ac-milan">AC Milan</option>
+                                        <option value="arsenal">Arsenal FC</option>
+                                        <option value="ajax">Ajax</option>
+                                        <option value="atletico-madrid">AtlÃ©tico Madrid</option>
+                                        <option value="dortmund">Borussia Dortmund</option>
+                                        <option value="tottenham">Tottenham Hotspur</option>
+                                    </select>
+                                    <span class="erreur"></span>
+                                </div>
+                                <div class="formation">
+                                    <div class="changerFormation">
+                                        <label class="label" for="rating">Rating</label>
+                                        <input type="number" id="rating" name="rating" min="1" max="99"
+                                            class="inputs inputsFormation" placeholder="rating" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                    <div class="changerFormation">
+                                        <label class="label" for="pace">pace</label>
+                                        <input type="number" id="pace" name="pace" min="1" max="100" placeholder="pace"
+                                            class="inputs inputsFormation" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                    <div class="changerFormation">
+                                        <label class="label" for="shooting">shooting</label>
+                                        <input type="number" id="shooting" name="shooting" min="1" max="99"
+                                            class="inputs inputsFormation" placeholder="shooting" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                    <div class="changerFormation">
+                                        <label class="label" for="passing">passing</label>
+                                        <input type="number" id="passing" name="passing" min="1" max="99"
+                                            class="inputs inputsFormation" placeholder="passing" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                    <div class="changerFormation">
+                                        <label class="label" for="dribbling">dribbling</label>
+                                        <input type="number" id="dribbling" name="dribbling" min="1" max="99"
+                                            class="inputs inputsFormation" placeholder="dribbling" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                    <div class="changerFormation">
+                                        <label class="label" for="defending">defending</label>
+                                        <input type="number" id="defending" name="defending" min="1" max="99"
+                                            class="inputs inputsFormation" placeholder="defending" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                    <div class="changerFormation">
+                                        <label class="label" for="physical">physical</label>
+                                        <input type="number" id="physical" name="physical" min="1" max="99"
+                                            class="inputs inputsFormation" placeholder="physical" onchange="validation()">
+                                        <span class="erreur"></span>
+                                    </div>
+                                </div>
+                                <button type="button" class="submit-form-btn" onclick="add()">Add player</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <script src="script.js"></script>
+    
+    <script src="https://kit.fontawesome.com/6d9e6483d0.js" crossorigin="anonymous" async defer></script>
 </body>
 </html>
 <?php
