@@ -88,6 +88,7 @@ nav.close {
 nav .logo-name {
     display: flex;
     align-items: center;
+    width: 220px;
 }
 
 nav .logo-image {
@@ -105,6 +106,7 @@ nav .logo-image img {
 nav .logo-name .logo_name {
     font-size: 22px;
     font-weight: 600;
+    margin-top: 15px;
     color: var(--text-color);
     margin-left: 14px;
     transition: var(--tran-05);
@@ -134,6 +136,11 @@ nav .menu-items {
     text-decoration: none;
     position: relative;
 }
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .nav-links li a:hover:before {
     content: "";
@@ -147,6 +154,9 @@ nav .menu-items {
 
 body.dark li a:hover:before {
     background-color: var(--text-color);
+}
+.logo_club,.image_joueur{
+    width: 40%;
 }
 
 .menu-items li a i {
@@ -423,7 +433,7 @@ nav.close~.dashboard .top {
     gap: 47px;
 }
 
-#ajout{
+#ajouter_player,#ajouter_nationality,#ajouter_club{
     width: 130px;
     height: 50px;
     background-color: #0E4BF1;
@@ -441,8 +451,42 @@ nav.close~.dashboard .top {
     z-index: 10;
     display: none;
 }
+#popup_info_player{
+    position: absolute;
+    top: 20vh;
+    left: 25%;
+    height: 60vh;
+    width: 35%;
+    z-index: 10;
+    background-color: #d8c025;
+    display: none;
+    flex-direction: column;
+    gap: 10%;
+    padding: 60px;
+}
+#popup_info_player.show{
+    display: flex;
+}
+.popup-nationality {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    height: 300px;
+    width: 50%;
+    z-index: 10;
+    display: none;
+}
+.popup-club {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    height: 60vh;
+    width: 50%;
+    z-index: 10;
+    display: none;
+}
 
-#popup.show {
+#popup.show ,.popup-nationality.show,.popup-club.show{
     display: block;
 }
 
@@ -459,7 +503,45 @@ nav.close~.dashboard .top {
 
     background-color: #707070;
 }
-
+.form-groupe-nationality{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    top: 25vh;
+    right: 5%;
+    height: 50vh;
+    width: 500px;
+    padding: 20px;
+    background-color: #707070;
+}
+#flag{
+    width: 460px;
+}
+.form-groupe-club{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    top: 25vh;
+    right: 5%;
+    height: 50vh;
+    width: 500px;
+    padding: 20px;
+    background-color: #707070;
+}
+#logo{
+    width: 460px;
+}
+.upload-flag-nationality{
+    width: 32%;
+    height: 10%;
+    padding: 10px 0;
+    cursor: pointer;
+    display: inline-block;
+    justify-content: center;
+    z-index: 10;
+}
 .form-groupe h2 {
     text-align: center;
     font-size: 20px;

@@ -8,6 +8,58 @@
         $databaseinfo['password'],
         $databaseinfo['database']
     );
+    
+    if (!$connection) {
+        die("Erreur de connexion : " . mysqli_connect_error());
+    }
+    
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = $_POST["name"];
+        $photo = $_POST["photo"];
+        $flag = $_POST["flag"];
+        $logo = $_POST["logo"];
+        $position = $_POST["position"];
+        $nationality = $_POST["nationality"];
+        $club = $_POST["club"];
+        $rating = $_POST["rating"];
+        if ($position =="GK") {
+            $diving = $_POST["diving"];
+            $handling = $_POST["handling"];
+            $kicking = $_POST["kicking"];
+            $reflexes = $_POST["reflexes"];
+            $speed = $_POST["speed"];
+            $positioning = $_POST["positioning"];
+            $gk_info = "INSERT INTO gool_keeper (diving, handling, kicking, reflexes, speed, positioning) VALUES ('$diving', '$handling','$kicking','$reflexes','$speed','$positioning')";
+            mysqli_query($connection, $gk_info);
+        }else {
+            $pace = $_POST["pace"];
+            $shooting = $_POST["shooting"];
+            $passing = $_POST["passing"];
+            $dribbling = $_POST["dribbling"];
+            $defending = $_POST["defending"];
+            $physical = $_POST["physical"];
+            $player_info = "INSERT INTO player_info (pace, shooting, passing, dribbling, defending, physical) VALUES ('$pace', '$shooting','$passing','$dribbling','$defending','$physical')";
+            mysqli_query($connection, $player_info);
+        }
+        
+        
+    
+        
+        $club_info = "INSERT INTO club (club_name, logo) VALUES ('$club', '$logo')";
+        $nationality_info = "INSERT INTO nationality (nationality, flag) VALUES ('$nationality', '$flag')";
+        $player = "INSERT INTO player (name_player, photo, position, rating) VALUES ('$name', '$photo','$position','$rating')";
+    
+        
+        mysqli_query($connection, $club_info);
+        mysqli_query($connection, $nationality_info);
+        mysqli_query($connection, $player);
+        // if (mysqli_query($connection, $gk_info)||mysqli_query($connection, $player_info)||mysqli_query($connection, $club_info)||mysqli_query($connection, $nationality_info)||mysqli_query($connection, $player)) {
+        //     echo "Données insérées avec succès";
+        // } else {
+        //     echo "Erreur d'insertion : " . mysqli_error($connection);
+        // }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,52 +71,37 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Admin Dashboard Panel</title> 
+    <title>Admin Dashboard Team</title> 
 </head>
 <body>
 
     <nav>
         <div class="logo-name">
-            <div class="logo-image">
-                <img src="images/logo.png" alt="">
-            </div>
-
-            <span class="logo_name">CodingLab</span>
+            <span class="logo_name">Dashboard Team</span>
         </div>
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="#">
+                <li><a href="/FUT_Champions_Web_App/index.php">
                     <i class="uil uil-estate"></i>
-                    <span class="link-name">Dahsboard</span>
+                    <span class="link-name">Home</span>
                 </a></li>
-                <li><a href="#">
-                    <i class="uil uil-files-landscapes"></i>
-                    <span class="link-name">Content</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name">Analytics</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="uil uil-thumbs-up"></i>
-                    <span class="link-name">Like</span>
-                </a></li>
-                <li><a href="#">
+                <li><a href="index.php">
                     <i class="uil uil-comments"></i>
-                    <span class="link-name">Comment</span>
+                    <span class="link-name">Joueurs</span>
                 </a></li>
-                <li><a href="#">
-                    <i class="uil uil-share"></i>
-                    <span class="link-name">Share</span>
+                <li><a href="nationality.php">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">Nationality</span>
+                </a></li>
+                <li><a href="club.php">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Club</span>
                 </a></li>
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="#">
-                    <i class="uil uil-signout"></i>
-                    <span class="link-name">Logout</span>
-                </a></li>
+                
 
                 <li class="mode">
                     <a href="#">
@@ -89,14 +126,13 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <button id="ajout">Ajouter player</button>
+            <button id="ajouter_player">Ajouter player</button>
         </div>
 
         <div class="dash-content">
 
             <div class="activity">
                 <div class="title">
-                    <i class="uil uil-clock-three"></i>
                     <span class="text">Recent Activity</span>
                 </div>
                 
@@ -118,7 +154,7 @@
                             $sql = "SELECT * FROM player";
                             $result = mysqli_query($connection,$sql);
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<image src= "'.$row['photo'].'"/></br>';
+                                echo '<image src= "'.$row['photo'].'" class="image_joueur"/></br>';
                             }
                         ?>
                     </div>
@@ -153,16 +189,54 @@
                     <div class="data type">
                         <span class="data-title">supprimer</span>
                         <i class="fa-solid fa-trash"></i>
+                        <i class="fa-solid fa-trash"></i>
+                        <i class="fa-solid fa-trash"></i>
+                        <i class="fa-solid fa-trash"></i>
+                        <i class="fa-solid fa-trash"></i>
                     </div>
-
+                    <div class="data type">
+                        <span class="data-title">info_player</span>
+                        <i class="fa-solid fa-circle-info"></i>
+                        <i class="fa-solid fa-circle-info"></i>
+                        <i class="fa-solid fa-circle-info"></i>
+                        <i class="fa-solid fa-circle-info"></i>
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div id= "popup_info_player">
+                    <i class="fa-solid fa-x fa-x-info"></i>
+                            <?php
+                                if ($position =="GK") {
+                                    $gk_data = "SELECT * FROM player 
+                                    inner join gool_keeper where id = player_id";
+                                    $result = mysqli_query($connection,$gk_data);
+                                    echo '<div>'.mysqli_fetch_assoc($result)[''].' : '.$_POST["positioning"].'</div>';
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<div> diving : '.$row['diving'].'</div>';
+                                        echo '<div> handling : '.$row['handling'].'</div>';
+                                        echo '<div> kicking : '.$row['kicking'].'</div>';
+                                        echo '<div> reflexes : '.$row['reflexes'].'</div>';
+                                        echo '<div> speed : '.$row['speed'].'</div>';
+                                        echo '<div> positioning : '.$row['positioning'].'</div>';
+                                    }
+                                }else {
+                                    echo '<div>pace : '.$_POST["pace"].'</div>';
+                                    echo '<div>shooting : '.$_POST["shooting"].'</div>';
+                                    echo '<div>passing : '.$_POST["passing"].'</div>';
+                                    echo '<div>dribbling : '.$_POST["dribbling"].'</div>';
+                                    echo '<div>defending : '.$_POST["defending"].'</div>';
+                                    echo '<div>physical : '.$_POST["physical"].'</div>';
+                                }
+                            ?>
+                    </div>
                     <div id= "popup">
                         <div class="form-groupe">
                             <h2>Ajouter Player</h2>
-                            <form>
+                            <form action="" method="post">
                                 <div>
                                     <label for="name">Name</label>
                                     <input type="text" id="name" placeholder="Enter player name" name="name" class="inputs"
                                         onchange="validation()" />
+                                    
                                     <span class="erreur"></span>
                                 </div>
                                 <div class="uplaod">
@@ -210,26 +284,14 @@
                                     <label for="nationality">Nationality</label>
                                     <select id="nationality" name="nationality" class="inputs" onchange="validation()">
                                         <option value=""></option>
-                                        <option value="morocco">Morocco</option>
-                                        <option value="albania">Albania</option>
-                                        <option value="algeria">Algeria</option>
-                                        <option value="argentina">Argentina</option>
-                                        <option value="australia">Australia</option>
-                                        <option value="brazil">Brazil</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="china">China</option>
-                                        <option value="egypt">Egypt</option>
-                                        <option value="france">France</option>
-                                        <option value="germany">Germany</option>
-                                        <option value="india">India</option>
-                                        <option value="italy">Italy</option>
-                                        <option value="japan">Japan</option>
-                                        <option value="mexico">Mexico</option>
-                                        <option value="afghanistan">Afghanistan</option>
-                                        <option value="russia">Russia</option>
-                                        <option value="saudi-arabia">Saudi Arabia</option>
-                                        <option value="spain">Spain</option>
-                                        <option value="united-states">United States</option>
+                                        <?php
+                                            $sql = "SELECT * FROM nationality";
+                                            $result = mysqli_query($connection,$sql);
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo '<option value='.$row['nationality'].'>'.$row['nationality'].'</option>';
+                                            }
+                                        ?>
+                                        
                                     </select>
                                     <span class="erreur"></span>
                                 </div>
@@ -238,22 +300,13 @@
                                     <label for="club">Club</label>
                                     <select id="club" name="club" class="inputs" onchange="validation()">
                                         <option value=""></option>
-                                        <option value="barcelona">FC Barcelona</option>
-                                        <option value="real-madrid">Real Madrid</option>
-                                        <option value="manchester-united">Manchester United</option>
-                                        <option value="manchester-city">Manchester City</option>
-                                        <option value="bayern-munich">Bayern Munich</option>
-                                        <option value="paris-saint-germain">Paris Saint-Germain (PSG)</option>
-                                        <option value="liverpool">Liverpool FC</option>
-                                        <option value="chelsea">Chelsea FC</option>
-                                        <option value="juventus">Juventus</option>
-                                        <option value="inter-milan">Inter Milan</option>
-                                        <option value="ac-milan">AC Milan</option>
-                                        <option value="arsenal">Arsenal FC</option>
-                                        <option value="ajax">Ajax</option>
-                                        <option value="atletico-madrid">AtlÃ©tico Madrid</option>
-                                        <option value="dortmund">Borussia Dortmund</option>
-                                        <option value="tottenham">Tottenham Hotspur</option>
+                                        <?php
+                                            $sql = "SELECT * FROM club";
+                                            $result = mysqli_query($connection,$sql);
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo '<option value='.$row['club_name'].'>'.$row['club_name'].'</option>';
+                                            }
+                                        ?>
                                     </select>
                                     <span class="erreur"></span>
                                 </div>
@@ -301,7 +354,8 @@
                                         <span class="erreur"></span>
                                     </div>
                                 </div>
-                                <button type="button" class="submit-form-btn" onclick="add()">Add player</button>
+                                
+                                <button type="submit" class="submit-form-btn" onclick="add()">Add player</button>
                             </form>
                         </div>
                     </div>
@@ -316,5 +370,7 @@
 </body>
 </html>
 <?php
+// $stmt = $mysqli->prepare("INSERT INTO player (column1, column2) VALUES (?, ?)");
+// $stmt->bind_param("ss", $var1, $var2);
 mysqli_close($connection);
 ?>

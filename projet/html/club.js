@@ -30,19 +30,10 @@ modeToggle.addEventListener("click", () => {
     }
 });
 
-document.querySelectorAll(".fa-circle-info").forEach(info => {
-    let popup_info_player = document.getElementById("popup_info_player");
-    info.addEventListener('click', () => {
-        popup_info_player.classList.toggle("show");
-    })
-    document.querySelector(".fa-x-info").addEventListener('click', ()=>{
-        popup_info_player.classList.toggle("show");
-    })
-});
-player.addEventListener('click', () => {
-    let popup = document.getElementById("popup");
-    console.log("hello");
-    popup.classList.toggle("show");
+
+club.addEventListener('click', () => {
+    let popup_club = document.querySelector(".popup-club");
+    popup_club.classList.toggle("show");
 });
 
 modifier.forEach(modif => {
